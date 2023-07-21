@@ -1,0 +1,12 @@
+server.port: 0
+spring:
+  application:
+    name: foo-source
+  cloud:
+    function:
+      definition: supplyFoo
+    stream:
+      defaultBinder: rabbit
+      bindings:
+        supplyFoo-out-0:
+          destination: foo-source
