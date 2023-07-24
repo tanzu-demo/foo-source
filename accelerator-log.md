@@ -3,11 +3,7 @@
 ## Options
 ```json
 {
-  "bsGitBranch" : "main",
-  "bsGitRepository" : "github.com?owner=tanzu-demo&repo=foo-source",
-  "eventProcessRole" : false,
-  "eventSinkRole" : false,
-  "eventSourceRole" : true,
+  "applicationRole" : "source",
   "groupId" : "com.example",
   "includeBuildToolWrapper" : true,
   "liveUpdateIDESupport" : true,
@@ -16,7 +12,7 @@
   "objectModelClassName" : "Foo",
   "packageName" : "com.example.tanzu.streamtemplate",
   "projectName" : "foo-source",
-  "resultChannel" : "foo-result",
+  "resultChannel" : "bar-result",
   "sourceChannel" : "foo-source"
 }
 ```
@@ -121,8 +117,8 @@
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[0].delegate.transformations[0].sources[2].delegate.transformations[1] (ReplaceText)
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗  Info Will replace [Foo->Foo]
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[0].delegate.transformations[0].sources[2].delegate.transformations[2] (YTT)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug Wrote values file with json content:   {"msgBrokerName":"stream-sample-message-broker","resultChannel":"foo-result","bsGitBranch":"main","artifactVersion":"0.0.1-beta","workloadResourceName":"foo-source","sourceChannel":"foo-source","bsGitRepository":"github.com?owner=tanzu-demo&repo=foo-source","groupId":"com.example","bindingName":"foo","eventSinkRole":false,"eventSourceRole":true,"liveUpdateIDESupport":true,"includeBuildToolWrapper":true,"lambaObjectPlural":"foos","artifactId":"foo-source","mainClassName":"StreamApplication","packageName":"com.example.tanzu.streamtemplate","packageDirectory":"com/example/tanzu/streamtemplate","objectModelClassName":"Foo","projectName":"foo-source","eventProcessRole":false,"lambaObjectSingleton":"foo"}
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗  Info Shelling out to YTT with args: [ytt, -f, /tmp/ytt-input1701362576835794061, --data-values-file, /tmp/accelerator-options13555411036061874219.json, --output-files, /tmp/ytt-output742795635190994939]
+┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug Wrote values file with json content:   {"msgBrokerName":"stream-sample-message-broker","resultChannel":"bar-result","applicationRole":"source","artifactVersion":"0.0.1-beta","workloadResourceName":"foo-source","sourceChannel":"foo-source","groupId":"com.example","bindingName":"foo","liveUpdateIDESupport":true,"includeBuildToolWrapper":true,"lambaObjectPlural":"foos","artifactId":"foo-source","mainClassName":"StreamApplication","packageName":"com.example.tanzu.streamtemplate","packageDirectory":"com/example/tanzu/streamtemplate","objectModelClassName":"Foo","projectName":"foo-source","lambaObjectSingleton":"foo"}
+┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗  Info Shelling out to YTT with args: [ytt, -f, /tmp/ytt-input1019523482442002382, --data-values-file, /tmp/accelerator-options8209118645835555081.json, --output-files, /tmp/ytt-output12967918661618019788]
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[0].delegate.transformations[0].sources[2].delegate.transformations[3] (RewritePath)
 ┃ ┃ ┃ ┃ ┃ ┗ ┗ ┗ Debug Path 'templates/application.yaml' matched 'templates/application.yaml' with groups {g0=templates/application.yaml} and was rewritten to 'src/main/resources/application.yaml'
 ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[0].delegate.transformations[1] (UniquePath)
@@ -186,7 +182,7 @@
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug Path 'src/main/java/com/example/tanzu/streamtemplate/StreamApplication.java' matched 'src/(?<sourceset>.*)/java/(?<currentpackage>.*/)streamtemplate(?<untouchedpath>.*)' with groups {sourceset=main, currentpackage=com/example/tanzu/, untouchedpath=/StreamApplication.java, g0=src/main/java/com/example/tanzu/streamtemplate/StreamApplication.java, g1=main, g2=com/example/tanzu/, g3=/StreamApplication.java} and was rewritten to 'src/main/java/com/example/tanzu/streamtemplate//StreamApplication.java'
 ┃ ┃ ┃ ┃ ┃ ┃ ┗ ┗ Debug Path 'src/main/java/com/example/tanzu/streamtemplate/model/Foo.java' matched 'src/(?<sourceset>.*)/java/(?<currentpackage>.*/)streamtemplate(?<untouchedpath>.*)' with groups {sourceset=main, currentpackage=com/example/tanzu/, untouchedpath=/model/Foo.java, g0=src/main/java/com/example/tanzu/streamtemplate/model/Foo.java, g1=main, g2=com/example/tanzu/, g3=/model/Foo.java} and was rewritten to 'src/main/java/com/example/tanzu/streamtemplate//model/Foo.java'
 ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[1].delegate.transformations[0].sources[2] (Combo)
-┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#eventSourceRole) evaluated to true
+┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#applicationRole == 'source') evaluated to true
 ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Combo running as Chain
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ engine.transformations[0].validated.delegate.in.transformations[1].delegate.transformations[0].sources[2].delegate (Chain)
 ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Running Chain(Include, ReplaceText, ReplaceText, RewritePath)
@@ -212,10 +208,10 @@
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[1].delegate.transformations[0].sources[2].delegate.transformations[3] (RewritePath)
 ┃ ┃ ┃ ┃ ┃ ┃ ┗ ┗ Debug Path 'src/main/java/com/example/tanzu/streamtemplate/functions/FooSource.java' matched 'src/(?<sourceset>.*)/java/(?<currentpackage>.*/)streamtemplate/functions/FooSource.java' with groups {sourceset=main, currentpackage=com/example/tanzu/, g0=src/main/java/com/example/tanzu/streamtemplate/functions/FooSource.java, g1=main, g2=com/example/tanzu/} and was rewritten to 'src/main/java/com/example/tanzu/streamtemplate/functions/FooSource.java'
 ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[1].delegate.transformations[0].sources[3] (Combo)
-┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#eventProcessRole) evaluated to false
+┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#applicationRole == 'processor') evaluated to false
 ┃ ┃ ┃ ┃ ┃ ┃ ┗ null ()
 ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[1].delegate.transformations[0].sources[4] (Combo)
-┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#eventSinkRole) evaluated to false
+┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#applicationRole == 'sink') evaluated to false
 ┃ ┃ ┃ ┃ ┃ ┗ ┗ null ()
 ┃ ┃ ┃ ┃ ┗ ╺ engine.transformations[0].validated.delegate.in.transformations[1].delegate.transformations[1] (UniquePath)
 ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[2] (Combo)
@@ -257,8 +253,8 @@
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug README.md didn't match [config/workload.yaml] -> excluded
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Debug catalog/catalog-info.yaml didn't match [config/workload.yaml] -> excluded
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[2].delegate.transformations[0].sources[1].delegate.transformations[1] (YTT)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug Wrote values file with json content:   {"msgBrokerName":"stream-sample-message-broker","resultChannel":"foo-result","bsGitBranch":"main","artifactVersion":"0.0.1-beta","workloadResourceName":"foo-source","sourceChannel":"foo-source","bsGitRepository":"github.com?owner=tanzu-demo&repo=foo-source","groupId":"com.example","bindingName":"foo","eventSinkRole":false,"eventSourceRole":true,"liveUpdateIDESupport":true,"includeBuildToolWrapper":true,"lambaObjectPlural":"foos","artifactId":"foo-source","mainClassName":"StreamApplication","packageName":"com.example.tanzu.streamtemplate","packageDirectory":"com/example/tanzu/streamtemplate","objectModelClassName":"Foo","projectName":"foo-source","eventProcessRole":false,"lambaObjectSingleton":"foo"}
-┃ ┃ ┃ ┃ ┃ ┗ ┗ ┗  Info Shelling out to YTT with args: [ytt, -f, /tmp/ytt-input17052624475895266423, --data-values-file, /tmp/accelerator-options11656549372614705482.json, --output-files, /tmp/ytt-output1050987387215532094]
+┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug Wrote values file with json content:   {"msgBrokerName":"stream-sample-message-broker","resultChannel":"bar-result","applicationRole":"source","artifactVersion":"0.0.1-beta","workloadResourceName":"foo-source","sourceChannel":"foo-source","groupId":"com.example","bindingName":"foo","liveUpdateIDESupport":true,"includeBuildToolWrapper":true,"lambaObjectPlural":"foos","artifactId":"foo-source","mainClassName":"StreamApplication","packageName":"com.example.tanzu.streamtemplate","packageDirectory":"com/example/tanzu/streamtemplate","objectModelClassName":"Foo","projectName":"foo-source","lambaObjectSingleton":"foo"}
+┃ ┃ ┃ ┃ ┃ ┗ ┗ ┗  Info Shelling out to YTT with args: [ytt, -f, /tmp/ytt-input2173552509543121043, --data-values-file, /tmp/accelerator-options7549044200381937007.json, --output-files, /tmp/ytt-output1534052941066718283]
 ┃ ┃ ┃ ┃ ┗ ╺ engine.transformations[0].validated.delegate.in.transformations[2].delegate.transformations[1] (UniquePath)
 ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[3] (Combo)
 ┃ ┃ ┃ ┃ ┃  Info Combo running as Chain
@@ -344,15 +340,8 @@
 ┃ ┃ ┃ ┃ ┃ ┃  Info Running Merge(InvokeFragment, Combo, InvokeFragment, Provenance)
 ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[0] (InvokeFragment)
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[0].validated (Combo)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#bsGitRepository != null) evaluated to true
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Combo running as Let
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[0].validated.delegate (Let)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ Debug Adding symbol repoUrl with value 'https://github.com?owner=tanzu-demo&repo=foo-source'
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[0].validated.delegate.in (Chain)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Running Chain(OpenRewriteRecipe, ReplaceText)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ╺ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[0].validated.delegate.in.transformations[0] (OpenRewriteRecipe)
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[0].validated.delegate.in.transformations[1] (ReplaceText)
-┃ ┃ ┃ ┃ ┃ ┃ ┗ ┗ ┗ ┗  Info Will replace regex '(?<beforeBranch>[\s\S]+)(?<branch>branch: [\S]+)(?<rest>[\S\s]*)' with '${beforeBranch}branc...(truncated)'
+┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Condition (#bsGitRepository != null) evaluated to false
+┃ ┃ ┃ ┃ ┃ ┃ ┗ ┗ null ()
 ┃ ┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[1] (Combo)
 ┃ ┃ ┃ ┃ ┃ ┃ ┃  Info Combo running as Include
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[1].delegate (Include)
@@ -401,19 +390,6 @@
 ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ┗ Debug mvnw.cmd matched [mvnw, mvnw.cmd, .mvn/**] -> included
 ┃ ┃ ┃ ┃ ┃ ┃ ┗ ┗ ╺ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[2].validated.delegate.transformations[1] (UniquePath)
 ┃ ┃ ┃ ┃ ┃ ┗ ╺ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[0].sources[3] (Provenance)
-┃ ┃ ┃ ┃ ┃ ┏ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[1] (UniquePath)
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path '.gitignore', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'src/main/java/com/example/tanzu/streamtemplate/functions/FooSource.java', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'src/main/java/com/example/tanzu/streamtemplate/model/Foo.java', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'pom.xml', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'src/main/resources/application.yaml', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'catalog/catalog-info.yaml', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'README.md', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'config/workload.yaml', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'Tiltfile', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'DEPLOYING.md', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'src/test/java/com/example/tanzu/streamtemplate/StreamApplicationTests.java', will use the one appearing first 
-┃ ┃ ┃ ┃ ┃ ┃ Debug Multiple representations for path 'src/main/java/com/example/tanzu/streamtemplate/StreamApplication.java', will use the one appearing first 
-┃ ┗ ┗ ┗ ┗ ┗ Debug Multiple representations for path 'LICENSE', will use the one appearing first 
+┃ ┗ ┗ ┗ ┗ ╺ engine.transformations[0].validated.delegate.in.transformations[4].delegate.transformations[1] (UniquePath)
 ┗ ╺ engine.transformations[1] (UniquePath)
 ```

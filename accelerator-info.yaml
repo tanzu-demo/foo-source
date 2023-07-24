@@ -1,5 +1,5 @@
-id: a9c98a10-1dca-46ee-8849-65bd11f4960a
-timestamp: 2023-07-21T18:30:18Z
+id: 944291e1-fda5-4837-88ec-0ad7f4fb10fa
+timestamp: 2023-07-24T14:24:08Z
 username: tanzu-demo
 source: TAP-GUI
 accelerator:
@@ -9,35 +9,31 @@ accelerator:
     subPath: streaming-app-template
     ref:
       branch: main
-    commit: de5c1f342e74b6268f02b1ac93a67cc948336a89
+    commit: 639c0bd3871a372152e700abb11b537ef7a8ca0b
 fragments:
-  - name: tap-workload
-    git:
-      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-      subPath: fragments/tap-workload
-      ref:
-        branch: main
-      commit: de5c1f342e74b6268f02b1ac93a67cc948336a89
   - name: build-wrapper-maven
     git:
       url: https://github.com/vmware-tanzu/application-accelerator-samples.git
       subPath: fragments/build-wrapper-maven
       ref:
         branch: main
-      commit: de5c1f342e74b6268f02b1ac93a67cc948336a89
+      commit: 639c0bd3871a372152e700abb11b537ef7a8ca0b
   - name: live-update
     git:
       url: https://github.com/vmware-tanzu/application-accelerator-samples.git
       subPath: fragments/live-update
       ref:
         branch: main
-      commit: de5c1f342e74b6268f02b1ac93a67cc948336a89
+      commit: 639c0bd3871a372152e700abb11b537ef7a8ca0b
+  - name: tap-workload
+    git:
+      url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+      subPath: fragments/tap-workload
+      ref:
+        branch: main
+      commit: 639c0bd3871a372152e700abb11b537ef7a8ca0b
 options:
-  bsGitBranch: main
-  bsGitRepository: github.com?owner=tanzu-demo&repo=foo-source
-  eventProcessRole: false
-  eventSinkRole: false
-  eventSourceRole: true
+  applicationRole: source
   groupId: com.example
   includeBuildToolWrapper: true
   liveUpdateIDESupport: true
@@ -46,5 +42,5 @@ options:
   objectModelClassName: Foo
   packageName: com.example.tanzu.streamtemplate
   projectName: foo-source
-  resultChannel: foo-result
+  resultChannel: bar-result
   sourceChannel: foo-source

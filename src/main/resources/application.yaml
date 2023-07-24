@@ -7,6 +7,9 @@ spring:
       definition: supplyFoo
     stream:
       defaultBinder: rabbit
+      function:
+        bindings:
+          supplyFoo-out-0: output
       bindings:
-        supplyFoo-out-0:
+        output:
           destination: foo-source
